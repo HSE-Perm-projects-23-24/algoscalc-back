@@ -6,6 +6,7 @@ import json
 import logging.config
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from sqladmin import Admin, ModelView
 
 from src.core.algorithm_collection import AlgorithmCollection, \
     ALGORITHM_NOT_EXISTS_TEMPL
@@ -15,6 +16,10 @@ from src.api_models import AlgorithmTitle, Algorithms, DataDefinition, \
 from src import APP_CONFIG_FILE_PATH, LOG_CONFIG_FILE_PATH, \
     PATH_CONFIG, ALGORITHM_CONFIG, IS_TEST_APP, EXECUTE_TIMEOUT, \
     ALGORITHMS_ENDPOINT, TIME_OVER_MSG
+from src.database import engine
+from src.models import Calculations, Outputs, Parameters as Param
+
+# Логирование
 
 if os.path.exists('../' + LOG_CONFIG_FILE_PATH):
     os.chdir('..')
@@ -33,6 +38,7 @@ logging.config.dictConfig(log_config)
 logger = logging.getLogger(__name__)
 logger.info('Start app')
 
+# Чтение эндпоинтов
 with open(APP_CONFIG_FILE_PATH, 'r') as conf_file:
     config = json.load(conf_file)
 path_config = config[PATH_CONFIG]
@@ -41,9 +47,31 @@ if bool(os.environ.get(IS_TEST_APP)):
     algorithm_config[EXECUTE_TIMEOUT] = 0
 
 algorithms = AlgorithmCollection(path_config, algorithm_config, log_config)
+web_config = config['web_config']
 
 app = FastAPI()
-web_config = config['web_config']
+admin = Admin(app, engine)
+
+
+class CalculationsAdmin(ModelView, model=Calculations):
+    column_list = [Calculations.id, Calculations.title, Calculations.description]
+
+
+class ParametersAdmin(ModelView, model=Param):
+    column_list = [Param.id, Param.name, Param.title, Param.description, Param.data_shape,
+                   Param.data_type, Param.default_value, Param.calculation]
+
+
+class OutputAdmin(ModelView, model=Outputs):
+    column_list = [Outputs.id, Outputs.name, Outputs.title, Outputs.description, Outputs.data_shape,
+                   Outputs.data_type, Outputs.default_value, Outputs.calculation]
+
+
+admin.add_view(CalculationsAdmin)
+admin.add_view(ParametersAdmin)
+admin.add_view(OutputAdmin)
+
+# Добавление заголовков к HTTP ответам
 app.add_middleware(
     CORSMiddleware,
     allow_origins=web_config['cors']['origins'],
