@@ -4,6 +4,7 @@
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi_pagination import add_pagination
 from sqladmin import Admin
 
 from src import ALGORITHMS_ENDPOINT
@@ -33,3 +34,5 @@ app.include_router(
     prefix=ALGORITHMS_ENDPOINT,
     tags=['algooscalc'],
 )
+
+add_pagination(app)
