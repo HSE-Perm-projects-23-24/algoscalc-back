@@ -81,7 +81,6 @@ async def get_specific_algorithm(algorithm_name: str):
                         name=row.name,
                         data_type=row.data_type,
                         data_shape=row.data_shape,
-                        default_value=row.default_value
                     )
                 )
         outputs_rows = []
@@ -94,7 +93,6 @@ async def get_specific_algorithm(algorithm_name: str):
                         name=row.name,
                         data_type=row.data_type,
                         data_shape=row.data_shape,
-                        default_value=row.default_value
                     )
                 )
         result = ReadAlgorithm(parameters=parameters_rows, outputs=outputs_rows, description=algorithm.description,
