@@ -6,7 +6,7 @@ import os
 
 FOLDER_PATH = os.getcwd() + '/algorithm_builder'
 COLLECTION_FOLDER_PATH = os.getcwd() + '/algorithm_collection'
-DEFINITION_FILE_NAME = 'definition.json'
+DEFINITION_FILE_NAME = 'fib_definition.db'
 FUNCTION_FILE_NAME = 'function.py'
 TEST_FILE_NAME = 'tests.py'
 NAME = 'name'
@@ -24,7 +24,7 @@ OUTPUT_TITLE = 'output_title'
 OUTPUT_DESCRIPTION = 'output_description'
 SCHEMA_FILE_PATH = 'src/core/schemas/algorithm_schema.json'
 PATH_CONFIG = {
-    'definition_file_name': 'definition.json',
+    'definition_file_name': 'fib_definition.db',
     'function_file_name': 'function.py',
     'test_file_name': 'tests.py',
     'json_schema_file_path': 'src/core/schemas/algorithm_schema.json',
