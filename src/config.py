@@ -19,7 +19,6 @@ class Settings(BaseSettings):
         self.__logger_init()
         self.__init_config()
 
-
     @property
     def database_url_asyncpg(self):
         return f"postgresql+asyncpg://{self.DB_USER}:{self.DB_PASS}@{self.DB_HOST}:{self.DB_PORT}/{self.DB_NAME}"
@@ -54,7 +53,6 @@ class Settings(BaseSettings):
         self.__path_config = path_config
         self.__algorithm_config = algorithm_config
         self.__web_config = config['web_config']
-
 
     @property
     def logger(self):

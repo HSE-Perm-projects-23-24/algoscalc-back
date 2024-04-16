@@ -64,7 +64,7 @@ class QuadraticEquationOutputVariables(BaseModel):
 
 
 class SubstringInStringOutputVariables(BaseModel):
-    new_count: str
+    new_count: int
 
 
 class PerfectNumbersOutputVariables(BaseModel):

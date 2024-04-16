@@ -3,9 +3,9 @@ from typing import Optional
 from fastapi_pagination import Page
 from fastapi_pagination.ext.sqlalchemy import paginate
 from sqlalchemy import select
+from sqlalchemy.orm import Session
 from starlette import status
 from fastapi import APIRouter, HTTPException, Depends
-
 
 from src.schemas.algorithms import (FibonacciOutputVariables, FibonacciInputVariables, MatrixSubOutputVariables,
                                     MatrixSubInputVariables, FibonacciListInputVariables,
@@ -18,11 +18,9 @@ from src.schemas.algorithms import (FibonacciOutputVariables, FibonacciInputVari
 from src.database import async_session_maker, get_async_session
 from src.schemas.calculations import (ReadCalculation, ReadAlgorithm, ReadOutput, ReadParameters)
 
-
 from src.errors import ErrorMessages
 from src.models import Calculations, Parameters as ParametersModel, Outputs as OutputsModel
 from src.algorithms_manager import algorithms_manager
-
 
 router = APIRouter()
 
@@ -126,6 +124,7 @@ async def get_matrix_sub_result(parameters: MatrixSubInputVariables):
 @router.post(
     '/fibonacci_list',
     tags=['algorithms'],
+    response_model=FibonacciListOutputVariables,
 )
 async def get_fibonacci_list_result(parameters: FibonacciListInputVariables):
     return await algorithms_manager.fibonacci_list_result(**parameters.__dict__)
@@ -134,6 +133,7 @@ async def get_fibonacci_list_result(parameters: FibonacciListInputVariables):
 @router.post(
     '/fuel_consumption',
     tags=['algorithms'],
+    response_model=FuelConsumptionOutputVariables,
 )
 async def get_fuel_consumption_result(parameters: FuelConsumptionInputVariables):
     return await algorithms_manager.fuel_consumption_result(**parameters.__dict__)

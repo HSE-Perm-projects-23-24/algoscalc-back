@@ -9,7 +9,6 @@ from src.schemas.algorithms import (FibonacciOutputVariables, MatrixSubOutputVar
                                     PerfectNumbersOutputVariables,
                                     FuelConsumptionOutputVariables, SimplexMethodOutputVariables)
 
-
 from src.algorithms.fibonacci.function import fibonacci
 from src.algorithms.fibonacci_list.function import fibonacci as fibonacci_list
 from src.algorithms.fuel_consumption.function import main as fuel_consumption
@@ -18,6 +17,7 @@ from src.algorithms.perfect_numbers.function import main as perfect_numbers
 from src.algorithms.quadratic_equation.function import main as quadratic_equation
 from src.algorithms.substring_in_a_string.function import main as substring_in_a_string
 from src.algorithms.simplex_method.function import main as simplex_method
+
 from src.database import async_session_maker
 from src.errors import ErrorMessages
 from src.models import Calculations
@@ -160,7 +160,6 @@ class AlgorithmsManager:
                 status_code=status.HTTP_400_BAD_REQUEST,
                 detail=ErrorMessages.INCORRECT_INPUT_DATA,
             )
-
 
     @classmethod
     async def __is_algorithm_exist(cls, name):

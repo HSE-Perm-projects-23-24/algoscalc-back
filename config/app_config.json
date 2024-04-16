@@ -7,7 +7,7 @@
     "algorithms_catalog_path": "src/algorithms"
   },
   "algorithm_config": {
-    "execute_timeout": 5
+    "execute_timeout": 0
   },
   "web_config": {
     "cors": {
@@ -18,11 +18,13 @@
         "https://prod.ommat.ru",
         "http://localhost",
         "http://localhost:4444",
+        "http://localhost:14444",
+        "http://127.0.0.1:14444",
         "http://localhost:5555",
         "http://localhost:44486"
       ],
       "credentials": true,
-      "methods": ["*"],
+      "methods": ["POST", "GET", "PUT", "PATCH", "DELETE"],
       "headers": ["*"]
     }
   }
